@@ -6,3 +6,5 @@ This script is designed to be ran automatically as a cronjob. You can run the sc
 
 ### Requirement
 You will need access to Vaisala's Lightning Exporter API in order for this script to work.
+
+You will also need to update config.py to fit your specific system (i.e. updating the location to write the data for your specific system) 
