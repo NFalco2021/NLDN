@@ -13,7 +13,7 @@ time_format = '%Y-%m-%dT%H.%M.%S'
 # Decimal seconds used to make sure name is unique.
 filename_format = time_format + '.%f'
 
-# TODO update filename to be more informative
+# TODO put all configuration and tracked data (like Time_File.json) into a single file.
 # Location of file used to track the last time the program successfully ran.
 last_ran = stage_directory + 'Time_File.json'
 
