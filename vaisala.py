@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 19 08:02:40 2019
-
-@author: Nick Falco
-"""
-
 # TODO write all logging outside this file to only raise exceptions
 #  and let vaisala.py handle the logging
 

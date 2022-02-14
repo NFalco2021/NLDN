@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep 23, 2019
-
-@author: Nick Falco
-"""
-
 # Run this file to get data caught up for long outages
 
 import sys

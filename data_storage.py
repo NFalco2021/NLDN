@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 19 08:02:40 2019
-
-@author: Nick Falco
-"""
-
 import sys
 import csv
 import json
