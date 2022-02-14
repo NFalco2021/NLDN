@@ -6,25 +6,28 @@
 
 
 import sys
-
 import json
 import logging
 import os
 import requests
 import shutil
 import subprocess
+from pathlib import Path
 
 import time_functions as t
 import data_storage as d
-
 import config as c
 
 
 # This will keep the log file size down to the defined size
-if os.path.getsize(c.log_file) > c.log_size:
-    os.rename(c.log_file,
-              c.log_archive + t.return_formatted_time() + '.log'
-              )
+if os.path.exists(c.log_file):
+    if os.path.getsize(c.log_file) > c.log_size:
+        os.rename(c.log_file,
+                  c.log_archive + t.return_formatted_time() + '.log'
+                  )
+else:
+    Path(c.log_file).touch(exist_ok=True)
+    
 
 # This will keep the NLDN folder down to the defined size
 get_size = subprocess.run(['du', '-s', '-B1', c.nldn_data],
