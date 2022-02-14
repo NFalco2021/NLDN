@@ -9,6 +9,7 @@ import sys
 import json
 import logging
 import os
+import time
 import requests
 import shutil
 import subprocess
@@ -19,8 +20,9 @@ import data_storage as d
 import config as c
 
 
-# This will keep the log file size down to the defined size
+# This will check the existence of the file
 if os.path.exists(c.log_file):
+    # If the file exists, this keeps the log file size down to the defined size
     if os.path.getsize(c.log_file) > c.log_size:
         os.rename(c.log_file,
                   c.log_archive + t.return_formatted_time() + '.log'
@@ -29,11 +31,13 @@ else:
     Path(c.log_file).touch(exist_ok=True)
     
 
-# This will keep the NLDN folder down to the defined size
+# This is used to keep the NLDN folder down to the defined size
 get_size = subprocess.run(['du', '-s', '-B1', c.nldn_data],
                           capture_output=True
                           )
+
 dir_size = int(get_size.stdout.split()[0].decode())
+
 formatted_time = t.return_formatted_time()
 archive_name = 'NLDN_' + formatted_time
 
@@ -79,7 +83,7 @@ auth_response = requests.request("POST",
                                  headers=c.headers
                                  ).json()
 
-# time.sleep(.01)
+time.sleep(1)
 c.headers.update({"Authorization": "Bearer " + auth_response['access_token']})
 
 get_response = requests.request("GET",
@@ -116,8 +120,16 @@ else:
                                       capture_output=True
                                       )
 
-        ftp_test = False if c.move_failed in move_results.__str__() else True
-        move_success = True if c.move_worked in move_results.__str__() else False
+        if c.move_failed in move_results.__str__():
+            ftp_test = False
+        else:
+            ftp_test = True
+
+        if c.move_worked in move_results.__str__():
+            move_success = True
+        else:
+            move_success = False
+            
         if not (ftp_test or move_success):
             # TODO Consider removing this logging function later.
             logging.info(f"Contents of move_results: "
