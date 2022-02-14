@@ -13,7 +13,7 @@ time_format = '%Y-%m-%dT%H.%M.%S'
 # Decimal seconds used to make sure name is unique.
 filename_format = time_format + '.%f'
 
-# TODO put all configuration and tracked data (like Time_File.json) into a single file.
+# TODO put all configuration and tracked data (like NLDN.json) into a single file.
 # Location of file used to track the last time the program successfully ran.
 status_file = stage_directory + 'NLDN.json'
 
