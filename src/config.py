@@ -37,7 +37,7 @@ headers = {'Content-Type': "application/x-www-form-urlencoded",
 
 # authentication.json needs to reflect actual URL encoded username and password
 # auth_file below is used for GitHub, the one below it is for testing as the file has real authentication credentials.
-# auth_file = root_directory + 'authentication.json'
+# auth_file = stage_directory + 'authentication.json'
 auth_file = '/home/falco/Desktop/authentication.json'
 
 
