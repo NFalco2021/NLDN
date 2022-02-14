@@ -3,12 +3,17 @@ import json
 import logging
 import sys
 import time
+import pytz
 
 import config as c
 
+
 # Use this to get UTC timestamp
-# import pytz
-# datetime.datetime(year=2019,month=1,day=1,tzinfo=pytz.UTC).timestamp()
+def get_utc_timestamp(day=1, month=1, year=2022):
+    return datetime.datetime(year=year, month=month, day=day,
+                             tzinfo=pytz.UTC
+                             ).timestamp()
+
 
 # Used for timing of program running
 # time_started = time.time()
@@ -33,6 +38,7 @@ def return_current_time():
     return time.time()
 
 
+# Function returns time with '.' to delimit between hours/minutes/seconds
 def return_formatted_time():
     try:
         return datetime.datetime.utcnow().strftime(c.filename_format)
@@ -40,6 +46,8 @@ def return_formatted_time():
         logging.exception(f"Exception {ex} occurred")
 
 
+# Function returns time with ':' to delimit between hours/minutes/seconds with 'Z' appended to the end
+# Could combine with return_formatted_time in future refactor
 def return_iso_time(date):
     try:
         iso_date = datetime.datetime(year=date.year,
