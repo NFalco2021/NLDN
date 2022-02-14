@@ -91,12 +91,12 @@ def write_json(path, data):
 
 def write_time():
     time_data = {'Time Last Ran': time_stopped.timestamp()}
-    write_json(c.last_ran, time_data)
+    write_json(c.status_file, time_data)
 
 
 def get_last_run_time():
     global time_last_ran
-    time_data = read_json(c.last_ran)
+    time_data = read_json(c.status_file)
     try:
         time_last_ran = datetime.datetime.fromtimestamp(float("%.6f" % time_data['Time Last Ran']))
     except Exception as ex:
@@ -105,7 +105,7 @@ def get_last_run_time():
 
 # For Testing
 def return_run_time():
-    time_data = read_json(c.last_ran)
+    time_data = read_json(c.status_file)
     return datetime.datetime.fromtimestamp(time_data['Time Last Ran']).timestamp()
 
 

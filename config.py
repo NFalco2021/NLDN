@@ -15,7 +15,7 @@ filename_format = time_format + '.%f'
 
 # TODO put all configuration and tracked data (like Time_File.json) into a single file.
 # Location of file used to track the last time the program successfully ran.
-last_ran = stage_directory + 'Time_File.json'
+status_file = stage_directory + 'NLDN.json'
 
 # Log file parameters
 log_file = stage_directory + 'vaisala.log'
