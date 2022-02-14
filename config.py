@@ -1,4 +1,4 @@
-import data_storage as d
+import json
 
 # Data destination folders.
 root_directory = '/home/falco/Desktop/NLDN/'
@@ -31,15 +31,27 @@ auth_url = "https://lightning-exporter.vaisala.io/spring-security-oauth-server/o
 bbox_url = "https://lightning-exporter.vaisala.io/ltg-api/ltgs/bbox"
 username = 'lightning-api'
 password = 'password'
-
-# authentication.json needs to reflect actual URL encoded username and password
-payload = d.read_json(root_directory + 'authentication.json')["Password"]
 headers = {'Content-Type': "application/x-www-form-urlencoded",
            'cache-control': "no-cache"
            }
-# payload below used for testing as the file has real authentication credentials.
+
+# authentication.json needs to reflect actual URL encoded username and password
+# auth_file below is used for GitHub, the one below it is for testing as the file has real authentication credentials.
+# auth_file = root_directory + 'authentication.json'
+auth_file = '/home/falco/Desktop/authentication.json'
+
+
+def read_json(path):
+    with open(path, 'r+') as f:
+        try:
+            return json.load(f)
+        except Exception as ex:
+            print(f"Exception {ex} occurred")
+
+
+payload = read_json(auth_file)["Password"]
+
 # TODO Find a better way to do the swap between an example authentication file and the real one.
-# payload = d.read_json('/home/falco/Desktop/authentication.json')["Password"]
 
 # Proxy server would be added like this if they are needed.
 # Would have to add parameter to the requests.request method calls.

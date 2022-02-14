@@ -22,9 +22,11 @@ import requests
 import shutil
 import subprocess
 
-import config as c
-import data_storage as d
 import time_functions as t
+import data_storage as d
+
+import config as c
+
 
 # This will keep the log file size down to the defined size
 if os.path.getsize(c.log_file) > c.log_size:

@@ -1,19 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 19 08:02:40 2019
-
-@author: Nick Falco
-"""
+import config as c
 
 import sys
 import time
-
 import datetime
 import json
 import logging
-
-import config as c
 
 # Use this to get UTC timestamp
 # import pytz
@@ -47,8 +38,6 @@ def return_formatted_time():
         return datetime.datetime.utcnow().strftime(c.filename_format)
     except Exception as ex:
         logging.exception(f"Exception {ex} occurred")
-        # print(traceback.format_exc())
-        # print(c.log_template.format(type(ex).__name__, ex.args))
 
 
 def return_iso_time(date):
