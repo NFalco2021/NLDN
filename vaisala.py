@@ -5,20 +5,20 @@
 #  in log of expiration and increase log level if it is expired.
 
 
-import sys
 import json
 import logging
 import os
-import time
-import requests
 import shutil
 import subprocess
+import sys
+import time
 from pathlib import Path
 
-import time_functions as t
-import data_storage as d
-import config as c
+import requests
 
+import config as c
+import data_storage as d
+import time_functions as t
 
 # This will check the existence of the file
 if os.path.exists(c.log_file):
@@ -29,7 +29,6 @@ if os.path.exists(c.log_file):
                   )
 else:
     Path(c.log_file).touch(exist_ok=True)
-    
 
 # This is used to keep the NLDN folder down to the defined size
 get_size = subprocess.run(['du', '-s', '-B1', c.nldn_data],
@@ -67,7 +66,6 @@ t.set_times()
 # logging.info("Start Time:\t" + str(t.start_time_iso))
 logging.info("Stop Time:\t" + str(t.stop_time_iso))
 
-
 querystring = {"startTime": t.start_time_iso,
                "endTime": t.stop_time_iso,
                "lowerLatitude": c.lower_lat,
@@ -96,8 +94,8 @@ try:
     d.write_csv(get_response.json())
 except KeyError:
     logging.exception(f"KeyError occurred - No CSV data\n"
-                      f"Auth: {json.dumps(auth_response, indent = 4)}\n"
-                      f"GetResponse: {json.dumps(get_response.json(), indent = 4)}\n"
+                      f"Auth: {json.dumps(auth_response, indent=4)}\n"
+                      f"GetResponse: {json.dumps(get_response.json(), indent=4)}\n"
                       )
     sys.exit(1)
 except IndexError:
@@ -105,8 +103,8 @@ except IndexError:
     t.write_time()
 except Exception as ex:
     logging.exception(f"Exception {ex} occurred\n"
-                      f"Auth: {json.dumps(auth_response, indent = 4)}\n"
-                      f"GetResponse: {json.dumps(get_response.json(), indent = 4)}\n"
+                      f"Auth: {json.dumps(auth_response, indent=4)}\n"
+                      f"GetResponse: {json.dumps(get_response.json(), indent=4)}\n"
                       )
 else:
     # Data is copied to the staging directory before it is moved to the ftp.
@@ -119,17 +117,17 @@ else:
                                        ],
                                       capture_output=True
                                       )
-
+        
         if c.move_failed in move_results.__str__():
             ftp_test = False
         else:
             ftp_test = True
-
+        
         if c.move_worked in move_results.__str__():
             move_success = True
         else:
             move_success = False
-            
+        
         if not (ftp_test or move_success):
             # TODO Consider removing this logging function later.
             logging.info(f"Contents of move_results: "
@@ -138,20 +136,20 @@ else:
                          f"Results = {(ftp_test or move_success)}"
                          )
             raise BrokenPipeError
-
+    
     except BrokenPipeError as bpe:
         logging.exception(f"FTP (ftp://ftp.aftac.gov) is not mounted. "
                           f"Either mount it manually or change NiFi destination folder"
                           )
         sys.exit(2)
-
+    
     except Exception as ex:
         logging.exception(f"Exception {ex} occurred\n"
-                          f"Auth: {json.dumps(auth_response, indent = 4)}\n"
-                          f"GetResponse: {json.dumps(get_response.json(), indent = 4)}\n"
+                          f"Auth: {json.dumps(auth_response, indent=4)}\n"
+                          f"GetResponse: {json.dumps(get_response.json(), indent=4)}\n"
                           )
         sys.exit(3)
-
+    
     else:
         t.write_time()
 

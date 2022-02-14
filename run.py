@@ -1,11 +1,11 @@
 # Run this file to get data caught up for long outages
 
-import sys
 import logging
 import os
+import sys
 
-import time_functions as t
 import config as c
+import time_functions as t
 
 # logging.basicConfig(level = logging.INFO,
 #                     filename = c.log_file,

@@ -28,12 +28,12 @@ for letter in access:
     if letter not in string.ascii_letters:
         if letter not in string.digits:
             access_b64diff.add(letter)
-            
+
 for letter in refresh:
     if letter not in string.ascii_letters:
         if letter not in string.digits:
             refresh_b64diff.add(letter)
-            
+
 print(access_b64diff)
 print(refresh_b64diff)
 
@@ -41,4 +41,3 @@ print(refresh_b64diff)
 # Typical B64 encoding does not use those characters
 # I believe they are a replacement for '+', '/', and '=' but not in that order
 # Some trial and error is needed to figure out which is which.
-

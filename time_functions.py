@@ -1,10 +1,10 @@
-import config as c
-
-import sys
-import time
 import datetime
 import json
 import logging
+import sys
+import time
+
+import config as c
 
 # Use this to get UTC timestamp
 # import pytz

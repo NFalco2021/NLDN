@@ -1,7 +1,7 @@
-import sys
 import csv
 import json
 import logging
+import sys
 
 import config as c
 import time_functions as t
