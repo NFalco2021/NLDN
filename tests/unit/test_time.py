@@ -1,8 +1,17 @@
 import unittest
+import pytest
 import config as c
 import time_functions as t
 import time
 import datetime
+import logging
+
+logging.basicConfig(level=logging.CRITICAL,
+                    filename=c.log_file,
+                    filemode='a',
+                    format=c.log_format,
+                    datefmt=c.time_format
+                    )
 
 
 class TestTimeMethods(unittest.TestCase):
@@ -23,6 +32,6 @@ class TestTimeMethods(unittest.TestCase):
                                       minute=1,
                                       second=1
                                       )
-        
         self.assertEqual(t.return_iso_time(test_date), test_date.isoformat() + 'Z')
+        self.assertLogs()
 
