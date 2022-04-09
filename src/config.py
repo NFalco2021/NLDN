@@ -27,7 +27,8 @@ log_size = 1048576
 nldn_size = log_size * 1024
 
 # API connection parameters
-auth_url = "https://lightning-exporter.vaisala.io/spring-security-oauth-server/oauth/token"
+# auth_url = "https://lightning-exporter.vaisala.io/spring-security-oauth-server/oauth/token"
+auth_url = "https://ltg-auth.vaisala.com/auth/realms/vaisala-dig-ltg/protocol/openid-connect/token"
 bbox_url = "https://lightning-exporter.vaisala.io/ltg-api/ltgs/bbox"
 username = 'lightning-api'
 password = 'password'
@@ -38,7 +39,8 @@ headers = {'Content-Type': "application/x-www-form-urlencoded",
 # authentication.json needs to reflect actual URL encoded username and password
 # auth_file below is used for GitHub, the one below it is for testing as the file has real authentication credentials.
 # auth_file = stage_directory + 'authentication.json'
-auth_file = '/home/falco/Desktop/authentication.json'
+# auth_file = '/home/falco/Desktop/authentication.json'
+auth_file = '/home/falco/Desktop/NewAuthentication.json'
 
 
 def read_json(path):

@@ -17,6 +17,10 @@ logging.basicConfig(level=logging.CRITICAL,
 class TestTimeMethods(unittest.TestCase):
     def test_current_time(self):
         self.assertIsInstance(t.return_current_time(), float)
+        
+    def test_get_utc_timestamp(self):
+        returned_timestamp = t.get_utc_timestamp()
+        
     
     def test_return_formatted_time(self):
         returned_time = t.return_formatted_time()

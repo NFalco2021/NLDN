@@ -90,6 +90,7 @@ get_response = requests.request("GET",
                                 params=querystring
                                 )
 
+
 try:
     d.write_csv(get_response.json())
 except KeyError:
