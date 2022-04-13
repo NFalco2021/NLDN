@@ -20,6 +20,15 @@ import config as c
 import data_storage as d
 import time_functions as t
 
+
+def posting(req):
+    return '\t{}\n\t{}\n\t{}'.format(
+        req.method + ' ' + req.url,
+        '\n\t'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        req.body
+    )
+
+
 # This will check the existence of the file
 if os.path.exists(c.log_file):
     # If the file exists, this keeps the log file size down to the defined size
@@ -74,12 +83,15 @@ querystring = {"startTime": t.start_time_iso,
                "upperLongitude": c.upper_lon
                }
 
-auth_response = requests.request("POST",
-                                 c.auth_url,
-                                 auth=requests.auth.HTTPBasicAuth(c.username, c.password),
-                                 data=c.payload,
-                                 headers=c.headers
-                                 ).json()
+
+auth = requests.request("POST",
+                        c.auth_url,
+                        auth=requests.auth.HTTPBasicAuth(c.username, c.password),
+                        data=c.payload,
+                        headers=c.headers
+                        )
+
+auth_response = auth.json()
 
 time.sleep(1)
 c.headers.update({"Authorization": "Bearer " + auth_response['access_token']})
@@ -90,13 +102,14 @@ get_response = requests.request("GET",
                                 params=querystring
                                 )
 
-
 try:
     d.write_csv(get_response.json())
 except KeyError:
     logging.exception(f"KeyError occurred - No CSV data\n"
                       f"Auth: {json.dumps(auth_response, indent=4)}\n"
-                      f"GetResponse: {json.dumps(get_response.json(), indent=4)}\n"
+                      f"AuthRequest: {{\n{posting(auth.request)}\n}}\n"
+                      f"Response: {json.dumps(get_response.json(), indent=4)}\n"
+                      f"ResponseHeaders: {json.dumps(dict(get_response.headers), indent=4)}\n"
                       )
     sys.exit(1)
 except IndexError:
