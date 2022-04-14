@@ -75,12 +75,14 @@ t.set_times()
 # logging.info("Start Time:\t" + str(t.start_time_iso))
 logging.info("Stop Time:\t" + str(t.stop_time_iso))
 
-querystring = {"startTime": t.start_time_iso,
-               "endTime": t.stop_time_iso,
-               "lowerLatitude": c.lower_lat,
-               "lowerLongitude": c.lower_lon,
-               "upperLatitude": c.upper_lat,
-               "upperLongitude": c.upper_lon
+querystring = {"start": t.start_time_iso,
+               "end": t.stop_time_iso,
+               "left": c.lower_lon,
+               "bottom": c.lower_lat,
+               "right": c.upper_lon,
+               "top": c.upper_lat,
+               "page": 0,
+               "size": 10
                }
 
 
