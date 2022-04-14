@@ -110,6 +110,7 @@ except KeyError:
                       f"AuthRequest: {{\n{posting(auth.request)}\n}}\n"
                       f"Response: {json.dumps(get_response.json(), indent=4)}\n"
                       f"ResponseHeaders: {json.dumps(dict(get_response.headers), indent=4)}\n"
+                      f"ResponseRequest: {{\n{posting(get_response.request)}\n}}\n"
                       )
     sys.exit(1)
 except IndexError:
