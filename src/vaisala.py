@@ -33,8 +33,6 @@ def main():
     c = Config()
     t = TimeFunctions()
     d = DataStorage(t.get_formatted_time(c.get_filename_format()))
-    # api_functions = ApiFunctions(c.get_auth_url(), c.get_username(),
-    #                             c.get_password(), c.get_payload(), c.get_headers())
 
     # This will check the existence of the file
     if os.path.exists(c.get_log_file()):
