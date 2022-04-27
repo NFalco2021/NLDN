@@ -108,8 +108,6 @@ try:
     d.write_csv(get_response.json())
 except KeyError:
     logging.exception(f"KeyError occurred - No CSV data\n"
-                      f"Auth: {json.dumps(auth_response, indent=4)}\n"
-                      f"AuthRequest: {{\n{posting(auth.request)}\n}}\n"
                       f"Response: {json.dumps(get_response.json(), indent=4)}\n"
                       f"ResponseHeaders: {json.dumps(dict(get_response.headers), indent=4)}\n"
                       f"ResponseRequest: {{\n{posting(get_response.request)}\n}}\n"
