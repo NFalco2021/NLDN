@@ -10,7 +10,9 @@ import config as c
 
 # Use this to get UTC timestamp
 def get_utc_timestamp(day=1, month=1, year=2022):
-    return datetime.datetime(year=year, month=month, day=day,
+    return datetime.datetime(year=year,
+                             month=month,
+                             day=day,
                              tzinfo=pytz.UTC
                              ).timestamp()
 

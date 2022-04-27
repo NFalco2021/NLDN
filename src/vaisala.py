@@ -20,6 +20,15 @@ import config as c
 import data_storage as d
 import time_functions as t
 
+
+def posting(req):
+    return '\t{}\n\t{}\n\t{}'.format(
+        req.method + ' ' + req.url,
+        '\n\t'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        req.body
+    )
+
+
 # This will check the existence of the file
 if os.path.exists(c.log_file):
     # If the file exists, this keeps the log file size down to the defined size
@@ -66,20 +75,25 @@ t.set_times()
 # logging.info("Start Time:\t" + str(t.start_time_iso))
 logging.info("Stop Time:\t" + str(t.stop_time_iso))
 
-querystring = {"startTime": t.start_time_iso,
-               "endTime": t.stop_time_iso,
-               "lowerLatitude": c.lower_lat,
-               "lowerLongitude": c.lower_lon,
-               "upperLatitude": c.upper_lat,
-               "upperLongitude": c.upper_lon
+querystring = {"start": t.start_time_iso,
+               "end": t.stop_time_iso,
+               "left": c.lower_lon,
+               "bottom": c.lower_lat,
+               "right": c.upper_lon,
+               "top": c.upper_lat,
+               "page": 0,
+               "size": 10
                }
 
-auth_response = requests.request("POST",
-                                 c.auth_url,
-                                 auth=requests.auth.HTTPBasicAuth(c.username, c.password),
-                                 data=c.payload,
-                                 headers=c.headers
-                                 ).json()
+
+auth = requests.request("POST",
+                        c.auth_url,
+                        auth=requests.auth.HTTPBasicAuth(c.username, c.password),
+                        data=c.payload,
+                        headers=c.headers
+                        )
+
+auth_response = auth.json()
 
 time.sleep(1)
 c.headers.update({"Authorization": "Bearer " + auth_response['access_token']})
@@ -94,8 +108,9 @@ try:
     d.write_csv(get_response.json())
 except KeyError:
     logging.exception(f"KeyError occurred - No CSV data\n"
-                      f"Auth: {json.dumps(auth_response, indent=4)}\n"
-                      f"GetResponse: {json.dumps(get_response.json(), indent=4)}\n"
+                      f"Response: {json.dumps(get_response.json(), indent=4)}\n"
+                      f"ResponseHeaders: {json.dumps(dict(get_response.headers), indent=4)}\n"
+                      f"ResponseRequest: {{\n{posting(get_response.request)}\n}}\n"
                       )
     sys.exit(1)
 except IndexError:
