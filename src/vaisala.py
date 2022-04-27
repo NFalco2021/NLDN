@@ -18,7 +18,6 @@ import requests
 from config import Config
 from time_functions import TimeFunctions
 from data_storage import DataStorage
-from api_functions import ApiFunctions
 
 
 def posting(req):
