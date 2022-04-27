@@ -1,5 +1,4 @@
 import unittest
-import pytest
 import config as c
 import time_functions as t
 import time
@@ -21,7 +20,6 @@ class TestTimeMethods(unittest.TestCase):
     def test_get_utc_timestamp(self):
         returned_timestamp = t.get_utc_timestamp()
         
-    
     def test_return_formatted_time(self):
         returned_time = t.return_formatted_time()
         self.assertIsInstance(returned_time, str)
@@ -39,3 +37,7 @@ class TestTimeMethods(unittest.TestCase):
         self.assertEqual(t.return_iso_time(test_date), test_date.isoformat() + 'Z')
         self.assertLogs()
 
+
+if __name__ == '__main__':
+    unittest.main()
+    
