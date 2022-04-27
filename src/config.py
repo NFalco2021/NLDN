@@ -1,7 +1,9 @@
 import json
+import os
 
-# Data destination folders.
-root_directory = '/home/falco/Desktop/NLDN/'
+# Data destination folders
+basedir = os.path.dirname(os.path.abspath(__file__))
+root_directory = basedir[:len(basedir)-3]
 nldn_data = root_directory + 'Data/'
 nldn_archive = root_directory + 'NLDN_Archive/'
 stage_directory = root_directory + 'Stage/'
@@ -25,23 +27,20 @@ log_template = "An exception of type {0} occurred. Arguments:\n{1!r}"
 # 1048576 is one megabyte
 log_size = 1048576
 nldn_size = log_size * 1024
-auth_url = "https://ltg-auth.vaisala.com/auth/realms/vaisala-dig-ltg/protocol/openid-connect/token"
 
 # API connection parameters
-# auth_url = "https://lightning-exporter.vaisala.io/spring-security-oauth-server/oauth/token"
-# bbox_url = "https://lightning-exporter.vaisala.io/ltg-api/ltgs/bbox"
-bbox_url = "https://ltg.vaisala.com/realtime/merge/api/v1/ltgs/bbox"
+auth_url = "https://lightning-exporter.vaisala.io/spring-security-oauth-server/oauth/token"
+bbox_url = "https://lightning-exporter.vaisala.io/ltg-api/ltgs/bbox"
 username = 'lightning-api'
 password = 'password'
-headers = {'Content-Type': "application/x-www-form-urlencoded",
+headers = {'Content-Type': "txt/csv",
            'cache-control': "no-cache"
            }
 
 # authentication.json needs to reflect actual URL encoded username and password
 # auth_file below is used for GitHub, the one below it is for testing as the file has real authentication credentials.
-# auth_file = stage_directory + 'authentication.json'
+auth_file = stage_directory + 'authentication.json'
 # auth_file = '/home/falco/Desktop/authentication.json'
-auth_file = '/home/falco/Desktop/NewAuthentication.json'
 
 
 def read_json(path):
@@ -81,7 +80,7 @@ upper_lon = '-65'
 #  Perhaps only once or twice a year. Think about storing it in last_ran file.
 #  If that's the route, update the name again.
 
-# Example of the limits of the API given back by Vaisala in their requests.
+# Limits of the API given back by Vaisala in their requests.
 '''
 Entire Area Allowed by Vaisala
 lower_lat = '0'
@@ -94,5 +93,4 @@ Start Date: August 14, 2016 00:00:00Z
 Start Epoch: 1471132800000
 Stop Date: August 14, 2020 00:00:00Z
 Stop Epoch: 1597363200000
-
 '''
